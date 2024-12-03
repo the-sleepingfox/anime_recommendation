@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class UserPreference(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE, related_name='preferences')
-    favorite_geners= models.JSONField(default=list)
+    favorite_genres= models.JSONField(default=list)
     watched_anime= models.JSONField(default=list)
 
     def __str__(self):
