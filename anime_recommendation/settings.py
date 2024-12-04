@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-#5uee5@7$vx#$-sd_5($san=s#ungf$@!zj!0*_jkzrad#i)mr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(" ")
 
 
 # Application definition
@@ -125,17 +126,28 @@ WSGI_APPLICATION = 'anime_recommendation.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# PostgreSQL Connection
-DATABASES = {
+DATABASES= {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'anime_db',
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.db.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
+
+# PostgreSQL Connection from local PC
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'anime_db',
+#         'USER': os.environ['DB_USER'],
+#         'PASSWORD': os.environ['DB_PASSWORD'],
+#         'HOST': 'localhost',
+#         'PORT': 5432,
+#     }
+# }
+
+# Pstgres DB connection from onrender
+database_url= os.environ["DATABASE_URL"]
+DATABASES["default"]= dj_database_url.parse(database_url)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
