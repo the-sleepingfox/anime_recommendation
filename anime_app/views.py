@@ -12,7 +12,7 @@ from .serializers import UserPreferenceSerializer
 # Create your views here.
 
 def home_page(request):
-    return render('home_page.html', request)
+    return render(request, 'home_page.html')
 class GetRoutes(APIView):
     def get(self, request):
         routes = [
