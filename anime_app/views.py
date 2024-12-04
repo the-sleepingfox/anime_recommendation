@@ -16,7 +16,7 @@ def home_page(request):
 class GetRoutes(APIView):
     def get(self, request):
         routes = [
-            {'GET': 'api/routes/'},
+            {'GET': 'api/'},
             {'POST': 'api/auth/register/'},
             {'POST': 'api/auth/login/'},
             {'POST': 'api/auth/refresh/'},

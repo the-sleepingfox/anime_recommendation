@@ -133,17 +133,6 @@ DATABASES= {
     }
 }
 
-# PostgreSQL Connection from local PC
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'anime_db',
-#         'USER': os.environ['DB_USER'],
-#         'PASSWORD': os.environ['DB_PASSWORD'],
-#         'HOST': 'localhost',
-#         'PORT': 5432,
-#     }
-# }
 
 # Pstgres DB connection from onrender
 database_url= os.environ["DATABASE_URL"]

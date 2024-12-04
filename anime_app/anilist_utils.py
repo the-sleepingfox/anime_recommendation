@@ -25,14 +25,13 @@ class AnilistClient:
         try:
             # Make the request to AniList GraphQL API
             response = requests.post(AnilistClient.API_URL, json={'query': query, 'variables': variables})
-            response.raise_for_status()  # Raise an HTTPError for bad responses
+            response.raise_for_status()
             data = response.json()
 
             # Return the API response
             return data
 
         except requests.exceptions.RequestException as e:
-            # Handle any request-related errors
             return f"error: {str(e)}"
         
     @staticmethod
