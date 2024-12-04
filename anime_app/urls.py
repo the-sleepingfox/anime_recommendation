@@ -28,5 +28,5 @@ urlpatterns = [
     path('anime/searchbygenre/', AnimeSearchByGenreView.as_view(), name='anime_search_by_genre'),
 
     path('user/preferences/', UserPreferenceView.as_view(), name='user_preferences'),
-    path('anime/recommendations/', AnimeRecommendationsView.as_view(), name='anime_recommendations'),
+    path('user/recommendations/', AnimeRecommendationsView.as_view(), name='anime_recommendations'),
 ]
