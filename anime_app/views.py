@@ -15,11 +15,14 @@ class GetRoutes(APIView):
     def get(self, request):
         routes = [
             {'GET': 'api/routes/'},
+            {'POST': 'api/auth/register/'},
             {'POST': 'api/auth/login/'},
             {'POST': 'api/auth/refresh/'},
             {'GET': 'api/anime/searchbyname/'},
-
-            {'GET': 'api/user/preferences'}
+            {'GET': 'api/anime/searchbygenre/'},
+            {'GET': 'api/user/preferences'},
+            {'PUT': 'api/user/preferences'},
+            {'GET': 'api/user/recommendations'},
         ]
 
         return Response(routes)
@@ -63,7 +66,7 @@ class UserPreferenceView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        """Get the user's preferences."""
+        # Getting the user preferences
         try:
             preferences = UserPreference.objects.get(user=request.user)
             serializer = UserPreferenceSerializer(preferences)
@@ -72,7 +75,8 @@ class UserPreferenceView(APIView):
             return Response({"error": "Preferences not found for this user."}, status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request):
-        """Update the user's preferences."""
+
+        # Adding or Updating the user's preferences
         try:
             preferences, created = UserPreference.objects.get_or_create(user=request.user)
             serializer = UserPreferenceSerializer(preferences, data=request.data, partial=True)
