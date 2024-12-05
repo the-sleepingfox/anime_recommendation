@@ -154,4 +154,13 @@ def logout_view(request):
 # User Dashboard
 @login_required
 def dashboard_view(request):
+    genres_list= [
+            "Action", "Adventure", "Comedy",
+            "Drama", "Ecchi", "Fantasy",
+            "Hentai","Horror", "Mahou Shoujo",
+            "Mecha", "Music", "Mystery",
+            "Psychological", "Romance", "Sci-Fi",
+            "Slice of Life", "Sports", "Supernatural",
+            "Thriller"
+            ]
     return render(request, 'dashboard.html')
