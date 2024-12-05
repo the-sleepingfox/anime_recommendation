@@ -163,4 +163,7 @@ def dashboard_view(request):
             "Slice of Life", "Sports", "Supernatural",
             "Thriller"
             ]
-    return render(request, 'dashboard.html')
+    context= {
+        "genres_list": genres_list
+    }
+    return render(request, 'dashboard.html', context)
