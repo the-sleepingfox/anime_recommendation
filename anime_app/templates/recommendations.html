@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Recommendations</h2>
+<ul>
+    {% for anime in recommendations %}
+    <li>
+        <h3>{{ anime.title.romaji }}</h3>
+        <p><b>Genres:</b> {{ anime.genres|join:", " }}</p>
+        <p><b>Description:</b> {{ anime.description|safe }}</p>
+    </li>
+    {% endfor %}
+</ul>
+<a href="/dashboard/"><button>Back to Dashboard</button></a>
+{% endblock %}

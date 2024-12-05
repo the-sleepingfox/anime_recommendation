@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+<section>
+    <h3>Search Anime</h3>
+    <form method="get" action="/search/">
+        <input type="text" name="name" placeholder="Search by Name">
+        <select name="genre">
+            <option value="">Select Genre</option>
+            <option value="Action">Action</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Drama">Drama</option>
+        </select>
+        <button type="submit">Search</button>
+    </form>
+</section>
+
+<section>
+    <h3>Set Preferences</h3>
+    <form method="post" action="/preferences/">
+        {% csrf_token %}
+        <input type="text" name="favorite_genres" placeholder="Favorite Genres (comma-separated)">
+        <input type="text" name="watched_anime" placeholder="Watched Anime IDs (comma-separated)">
+        <button type="submit">Save Preferences</button>
+    </form>
+</section>
+
+<section>
+    <h3>Recommendations</h3>
+    <a href="/recommendations/"><button>Get Recommendations</button></a>
+</section>
+{% endblock %}

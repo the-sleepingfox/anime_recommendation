@@ -8,6 +8,9 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserPreferenceSerializer
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+import json
 
 # Create your views here.
 
@@ -104,3 +107,51 @@ class AnimeRecommendationsView(APIView):
                 recommended_anime.extend(data["data"]["Page"]["media"])
 
         return Response(recommended_anime[:10], status=status.HTTP_200_OK)
+
+
+# views for minimal ui for user interaction
+
+def home_page(request):
+    return render(request, 'home_page.html')
+
+# User Registration
+def register_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        if password != confirm_password:
+            return render(request, 'register.html', {'error': 'Passwords do not match.'})
+
+        from django.contrib.auth.models import User
+        if User.objects.filter(username=username).exists():
+            return render(request, 'register.html', {'error': 'Username already exists.'})
+        
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        return redirect('/login/')
+    return render(request, 'register.html')
+
+# User Login
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('/dashboard/')
+        return render(request, 'login.html', {'error': 'Invalid username or password.'})
+    return render(request, 'login.html')
+
+# User Logout
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+# User Dashboard
+@login_required
+def dashboard_view(request):
+    return render(request, 'dashboard.html')

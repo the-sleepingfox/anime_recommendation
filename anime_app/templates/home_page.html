@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Recommendation API</title>
-</head>
-<body>
-    <H1>Thanks for using our api</H1>
-    <p>URL= <a href="https://anime-recommendation-i4ri.onrender.com/">https://anime-recommendation-i4ri.onrender.com/</a></p>
-    <h3>Below are the Endpoints that can be used</h3>
-        <h1 >eg: <i>URL/api/routes/</i></h1>
-    <p>'GET': 'api/routes/'</p>
-    <p>'POST': 'api/auth/register/</p>
-    <p>'POST': 'api/auth/login/'</p>
-    <p>'POST': 'api/auth/refresh/'</p>
-    <p>'GET': 'api/anime/searchbyname/'</p>
-    <p>'GET': 'api/anime/searchbygenre/'</p>
-    <p>'GET': 'api/user/preferences'</p>
-    <p>'PUT': 'api/user/preferences'</p>
-    <p>'GET': 'api/user/recommendations'</p>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<h2>Welcome to the Anime Recommendation System</h2>
+<p>Use this platform to explore anime, set your preferences, and get recommendations tailored to your taste!</p>
+<h3>Endpoints:</h3>
+<ul>
+    <li><b>Register:</b> POST `/api/auth/register/`</li>
+    <li><b>Login:</b> POST `/api/auth/login/`</li>
+    <li><b>Search Anime by Name:</b> GET `/api/anime/searchbyname/`</li>
+    <li><b>Search Anime by Genre:</b> GET `/api/anime/searchbygenre/`</li>
+    <li><b>Get Recommendations:</b> GET `/api/user/recommendations/`</li>
+</ul>
+<p><a href="/register/">Get Started Now!</a></p>
+{% endblock %}
