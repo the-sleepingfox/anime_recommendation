@@ -4,6 +4,11 @@ This project is an Anime Recommendation System built with Django REST Framework 
 
 Deployed at: **[Anime Recommendation System](https://anime-recommendation-i4ri.onrender.com/)**
 
+for testing purpose use 
+```arduino
+username: testuser
+password: password
+```
 ---
 
 ## **Features**

@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h2>Anime Search Results</h2>
-{% if error %}
-<p style="color: red;">{{ error }}</p>
-{% endif %}
-<ul>
-    {% for anime in results %}
-    <li>
-        <h3>{{ anime.title.romaji }}</h3>
-        <p><b>Genres:</b> {{ anime.genres|join:", " }}</p>
-        <p><b>Description:</b> {{ anime.description|safe }}</p>
-    </li>
-    {% endfor %}
-</ul>
-<a href="/dashboard/"><button>Back to Dashboard</button></a>
+<body>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Anime Search Results</h1>
+        <p>Showing results for:- {{param}}</p>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for anime in results %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ anime.title.english|default:anime.title.romaji }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Popularity: {{ anime.popularity }}</h6>
+                        <p class="card-text">
+                            <strong>Genres:</strong> {{ anime.genres|join:", " }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="/dashboard/"><button>Back to Dashboard</button></a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
 {% endblock %}

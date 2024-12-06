@@ -172,6 +172,30 @@ def dashboard_view(request):
     }
     return render(request, 'dashboard.html', context)
 
+# Anime Search
+@login_required
+def search_view(request):
+    name = request.GET.get('name')
+    genre = request.GET.get('genre')
+    search_results= []
+    if not name and not genre:
+        return render(request, 'search_results.html', {'error': 'Please provide a name or genre to search.'})
+    elif genre:
+        results = AnilistClient.anime_search_by_genre(genre=genre)
+        if "data" in results and "Page" in results["data"]:
+                search_results.extend(results["data"]["Page"]["media"])
+        return render(request, 'search_results.html', {'results': search_results, 'param': genre})
+    else:
+        results = AnilistClient.anime_search_by_name(name=name)
+        print(results)
+        print(f"results:  {results['data']['Media']}")
+        if "data" in results and "Media" in results["data"]:
+            search_results.append(results["data"]["Media"])
+            print(f"search: {search_results}")
+        return render(request, 'search_results.html', {'results': search_results, 'param':name})
+
+
+# User Preference
 @login_required
 def preferences_view(request):
     if request.method == 'POST':
