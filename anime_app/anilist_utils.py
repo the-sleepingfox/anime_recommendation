@@ -63,26 +63,3 @@ class AnilistClient:
 
         except requests.exceptions.RequestException as e:
             return f"error: {str(e)}"
-
-    
-    @staticmethod
-    def fetch_anime_by_id(anime_id):
-
-        query = '''
-        query ($id: Int) {
-          Media(id: $id, type: ANIME) {
-            id
-            title {
-              romaji
-              english
-              native
-            }
-            genres
-            popularity
-          }
-        }
-        '''
-
-        variables= {'id': anime_id}
-        response= requests.post(AnilistClient.API_URL, json={'query': query, 'variables': variables})
-        return response.json()

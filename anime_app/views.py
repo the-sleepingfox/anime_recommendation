@@ -163,7 +163,61 @@ def dashboard_view(request):
             "Slice of Life", "Sports", "Supernatural",
             "Thriller"
             ]
+    
+    preferences, created= UserPreference.objects.get_or_create(user= request.user)
+    
     context= {
+        "user_preferences": preferences,
         "genres_list": genres_list
     }
     return render(request, 'dashboard.html', context)
+
+@login_required
+def preferences_view(request):
+    if request.method == 'POST':
+        favorite_genres = request.POST['favorite_genres'].split(',')
+        watched_anime = request.POST['watched_anime'].split(',')
+
+        preferences, created = UserPreference.objects.get_or_create(user=request.user)
+
+        for genre in favorite_genres:
+            if genre in preferences.favorite_genres:
+                return redirect('/dashboard/')
+            else:
+                preferences.favorite_genres = preferences.favorite_genres+favorite_genres
+            
+        for anime in watched_anime:
+            if anime in preferences.watched_anime:
+                return redirect('/dashboard/')
+            preferences.watched_anime= preferences.watched_anime+watched_anime
+
+        preferences.save()
+
+    return redirect('/dashboard/')
+
+@login_required
+def recommendations_view(request):
+    try:
+        # Fetch the user's preferences
+        preferences = UserPreference.objects.get(user=request.user)
+        favorite_genres = preferences.favorite_genres
+
+        if not favorite_genres:
+            return render(request, 'recommendations.html', {'error': 'No favorite genres found in your preferences.'})
+
+        # Fetch recommendations from AniList for each favorite genre
+        recommendations = []
+        for genre in favorite_genres:
+            genre_recommendations = AnilistClient.anime_search_by_genre(genre=genre)
+
+            if "data" in genre_recommendations and "Page" in genre_recommendations["data"]:
+                recommendations.extend(genre_recommendations["data"]["Page"]["media"])
+
+        unique_recommendations = {anime['id']: anime for anime in recommendations}
+        cleaned_recommendations = list(unique_recommendations.values())
+        cleaned_recommendations.sort(key=lambda x: x['popularity'], reverse=True)
+
+        return render(request, 'recommendations.html', {"recommendations": cleaned_recommendations})
+
+    except UserPreference.DoesNotExist:
+        return render(request, 'recommendations.html', {'error': 'No preferences found. Please update your preferences.'})

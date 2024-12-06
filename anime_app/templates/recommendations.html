@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h2>Your Recommendations</h2>
-<ul>
-    {% for anime in recommendations %}
-    <li>
-        <h3>{{ anime.title.romaji }}</h3>
-        <p><b>Genres:</b> {{ anime.genres|join:", " }}</p>
-        <p><b>Description:</b> {{ anime.description|safe }}</p>
-    </li>
-    {% endfor %}
-</ul>
-<a href="/dashboard/"><button>Back to Dashboard</button></a>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Recommendations as per your taste</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for anime in recommendations %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ anime.title.english|default:anime.title.romaji }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Popularity: {{ anime.popularity }}</h6>
+                        <p class="card-text">
+                            <strong>Genres:</strong> {{ anime.genres|join:", " }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
 {% endblock %}
