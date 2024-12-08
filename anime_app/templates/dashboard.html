@@ -20,10 +20,44 @@
     <h3>Set Preferences</h3>
     <form method="post" action="/preferences/">
         {% csrf_token %}
-        <input type="text" name="favorite_genres" placeholder="Favorite Genres (comma-separated)">
-        <input type="text" name="watched_anime" placeholder="Watched Anime IDs (comma-separated)">
-        <button type="submit">Save Preferences</button>
+
+        <h3>Genres List</h3>
+            <div class="list-container" id="list-container">
+                <ul class="gen-list">
+                    {% for genre in genres_list %}
+                    <li class="gen-list-item" id="gen-list-item" onclick="toggleSymptom(this, '{{genre}}')">
+                        {{ genre }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        <input class="ip_genre" type="text" name="favorite_genres" id="fav_genre" placeholder="Select from list">
+        <input class="ip_anime" type="text" name="watched_anime" placeholder="Watched Anime IDs (comma-separated)">
+        <button class="save_preferences" type="submit">Save Preferences</button>
     </form>
+</section>
+
+<section>
+    <h3>Your Preferences</h3>
+    <table>
+        <tr>
+            <th>Favorite Genre's</th>
+            <th>Watched Anime's</th>
+        </tr>
+        <tr>
+            <td>
+                {% for genre in user_preferences.favorite_genres %}
+                <p>{{ genre }}</p>
+                {% endfor %}
+            </td>
+            <td>
+                {% for anime in user_preferences.watched_anime %}
+                <p>{{ anime }}</p>
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
 </section>
 
 <section>

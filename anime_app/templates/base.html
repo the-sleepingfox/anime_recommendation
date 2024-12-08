@@ -7,39 +7,120 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          text-align: center;
         }
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 1rem;
+          background-color: #333;
+          color: #fff;
+          padding: 1rem;
         }
         nav {
-            margin: 1rem 0;
+          margin: 1rem 0;
         }
         nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #61dafb;
+          margin: 0 10px;
+          text-decoration: none;
+          color: #61dafb;
         }
         nav a:hover {
-            color: #21a1f1;
+          color: #21a1f1;
         }
         main {
-            padding: 2rem;
+          padding: 2rem;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        table,
+        th,
+        td {
+          border: 1px solid black;
+        }
+        th,
+        td {
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2;
         }
         footer {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #f1f1f1;
+          margin-top: 2rem;
+          padding: 1rem;
+          background: #f1f1f1;
         }
-        ul li{
-            list-style: none;
+        ul li {
+          list-style: none;
         }
-    </style>
+  
+        .list-container {
+          max-height: 340px;
+          max-width: 1000px;
+          /* margin-right: 200px; */
+          overflow-y: scroll;
+          border: 1px solid #ddd;
+          margin-left: 100px;
+          margin-right: 100px;
+          padding: 10px;
+          border-radius: 5px;
+          background-color: #cfff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+  
+        .gen-list {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          background-color: #cfff;
+        }
+  
+        .gen-list-item {
+          cursor: pointer;
+          display: inline-block;
+          background-color: #ffffff;
+          margin: 10px;
+          padding: 10px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition: 0.2s ease-in-out;
+          /* font-style: oblique; */
+        }
+  
+        .gen-list-item:hover {
+          background-color: #61dafb;
+          color: white;
+        }
+  
+        .gen-list-item:active {
+          background-color: #298ac6;
+          color: whitesmoke;
+        }
+  
+        .active {
+          background-color: #21a1f1;
+          color: whitesmoke;
+        }
+  
+        .card-title{
+          font-weight: 600;
+          font-size: 25px;
+          color:#298ac6;
+  
+        }
+  
+        .ip_genre, .ip_anime {
+          padding: 10px 100px;
+          margin: 10px;
+          box-sizing: content-box;
+        }
+        .save_preferences{
+          padding: 10px 20px;
+        }
+      </style>
 </head>
 <body>
     <header>

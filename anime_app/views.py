@@ -195,29 +195,32 @@ def search_view(request):
         return render(request, 'search_results.html', {'results': search_results, 'param':name})
 
 
-# User Preference
 @login_required
 def preferences_view(request):
     if request.method == 'POST':
-        favorite_genres = request.POST['favorite_genres'].split(',')
-        watched_anime = request.POST['watched_anime'].split(',')
-
         preferences, created = UserPreference.objects.get_or_create(user=request.user)
+    
+        favorite_genres = request.POST['favorite_genres'].split(', ')
+        watched_anime = request.POST['watched_anime'].split(', ')
 
-        for genre in favorite_genres:
-            if genre in preferences.favorite_genres:
-                return redirect('/dashboard/')
-            else:
-                preferences.favorite_genres = preferences.favorite_genres+favorite_genres
-            
-        for anime in watched_anime:
-            if anime in preferences.watched_anime:
-                return redirect('/dashboard/')
-            preferences.watched_anime= preferences.watched_anime+watched_anime
+        genres_list= [
+            "Action", "Adventure", "Comedy",
+            "Drama", "Ecchi", "Fantasy",
+            "Hentai","Horror", "Mahou Shoujo",
+            "Mecha", "Music", "Mystery",
+            "Psychological", "Romance", "Sci-Fi",
+            "Slice of Life", "Sports", "Supernatural",
+            "Thriller"
+        ]
 
+        favorite_genres = [genre.title() for genre in favorite_genres if genre.title() in genres_list]
+        preferences.favorite_genres = list(set(preferences.favorite_genres + favorite_genres))
+        preferences.watched_anime = list(set(preferences.watched_anime + watched_anime))
         preferences.save()
 
+
     return redirect('/dashboard/')
+
 
 @login_required
 def recommendations_view(request):
