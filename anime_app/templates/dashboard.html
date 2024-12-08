@@ -25,7 +25,7 @@
             <div class="list-container" id="list-container">
                 <ul class="gen-list">
                     {% for genre in genres_list %}
-                    <li class="gen-list-item" id="gen-list-item" onclick="toggleSymptom(this, '{{genre}}')">
+                    <li class="gen-list-item" id="gen-list-item" onclick="toggleGenres(this, '{{genre}}')">
                         {{ genre }}
                     </li>
                     {% endfor %}
@@ -64,4 +64,22 @@
     <h3>Recommendations</h3>
     <a href="/recommendations/"><button>Get Recommendations</button></a>
 </section>
+
+<script>
+    function toggleGenres(element, symptom) {
+            const input = document.getElementById('fav_genre');
+            let symptoms = input.value.split(',').map(s => s.trim()).filter(s => s); // Split and trim
+
+            if (symptoms.includes(symptom)) {
+                symptoms = symptoms.filter(s => s !== symptom);
+                element.classList.remove('active');
+            } else {
+                symptoms.push(symptom);
+                element.classList.add('active');
+            }
+
+            input.value = symptoms.join(', ');
+        }
+
+</script>
 {% endblock %}
