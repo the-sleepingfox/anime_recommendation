@@ -44,14 +44,12 @@ INSTALLED_APPS = [
     'anime_app',
     'rest_framework',
     'rest_framework_simplejwt',
-    'drf_spectacular',
 ]
 
 REST_FRAMEWORK= {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    ]
 }
 
 SIMPLE_JWT = {
@@ -124,17 +122,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'anime_recommendation.wsgi.application'
 
-# PostgreSQL Connection from local PC
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'anime_db',
-#         'USER': os.environ['DB_USER'],
-#         'PASSWORD': os.environ['DB_PASSWORD'],
-#         'HOST': 'localhost',
-#         'PORT': 5432,
-#     }
-# }
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
